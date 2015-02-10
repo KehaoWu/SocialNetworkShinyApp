@@ -1,5 +1,5 @@
 library(shiny)
-library(ggplot2)
+library(igraph)
 
 shinyServer(function(input, output) {
   
@@ -21,21 +21,19 @@ shinyServer(function(input, output) {
       V(g)$frame.color = "white"
       V(g)$label = Label
       V(g)$label.cex = input$vLabelFontSize
-      V(g)$label.color = "black"
-      V(g)$color = input$color
+      V(g)$label.color = input$vfcolor
+      V(g)$color = input$vcolor
       V(g)$size = input$vSize
       
       E(g)$arrow.mode = 0
       E(g)$label = RelationLabel
       E(g)$label.cex = input$eLabelFontSize
-      E(g)$label.color = "black"
-      E(g)$color = input$color
+      E(g)$label.color = input$efcolor
+      E(g)$color = input$ecolor
       E(g)$width = input$eLWD
       plot(g,layout = layout.auto)
       title(main = input$mainTitle,cex.main=input$mainFontSize)
-    }else{
-      cat("<h3>Help</h3>")
-      cat("<p>I won't start to write any help documents until I have finished the development.</p>")
+      title(sub = "Developed by Kehao Wu",cex.sub=0.8,col.sub="tomato")
     }
 
     
