@@ -71,6 +71,11 @@ shinyUI(pageWithSidebar(
   ),
   
   mainPanel(
-    plotOutput('plot')
+    conditionalPanel(condition = "input.OK = true",
+                     plotOutput('plot')
+                     ),
+    conditionalPanel(condition = "input.OK = false",
+                     htmlOutput('help',inline = T)
+    )
   )
 ))

@@ -2,7 +2,9 @@ library(shiny)
 library(igraph)
 
 shinyServer(function(input, output) {
-  
+  output$help <- renderPrint({
+    cat("<p>help</p>")
+  })
 
   
   output$plot <- reactivePlot(function() {
