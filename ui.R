@@ -19,8 +19,8 @@ UIcharSetChinese = list(headTitle = "人物关系图",
 
 UIcharSetEnglish = list(headTitle = "Social Relationship Network Graph",
                         ok = "Are You Ready？",
-                        person1 = "First Persons (separed by space or comma)",
-                        person2 = "Second Persons (separed by space or comma)",
+                        person1 = "First Persons (separated by space or comma)",
+                        person2 = "Second Persons (separated by space or comma)",
                         RelationLabel = "Relationship Labels (separed by space or comma)",
                         mainTitle = "Main Title",
                         vcolor = "Color for Persons",
@@ -36,24 +36,23 @@ UIcharSetEnglish = list(headTitle = "Social Relationship Network Graph",
 UIcharSet = UIcharSetChinese
 
 dataset <- data.frame(
-  person1 = "Tom,Jerry,Smith,Kath,Jerry,Jason,Obama,Jason",
-  person2 = "Jerry,Kath,Tom,Tom,Smith,Obama,Kath,Tom",
-  relation = "friend,couples,friend,classmate,couples,friend,classmate,friend"
+  person1 = "令计划 令计划 令计划 谷丽萍 谷丽萍 于丽芳 令完成 毛晓峰 毛晓峰",
+  person2 = "令完成 谷丽萍 毛晓峰 于丽芳 毛晓峰 毛晓峰 毛晓峰 段青山 董文标",
+  relation = "兄弟 夫妻 校友及昔日上下级 夫人俱乐部成员 同事 同事 校友 同事 同事"
 )
 colorSet <- c("grey","skyblue","turquoise","tomato","tan","slateblue",
               "wheat","sienna","black")
 
 shinyUI(pageWithSidebar(
   
-  #headerPanel("Social Network"),
-  headerPanel("人物关系图"),
+  headerPanel(UIcharSet$headTitle),
   
   sidebarPanel(
     checkboxInput("OK",UIcharSet$ok,F),
     textInput("person1",UIcharSet$person1,value=dataset$person1),
     textInput("person2",UIcharSet$person2,value=dataset$person2),
     textInput("RelationLabel",UIcharSet$RelationLabel,value=dataset$relation),
-    textInput("mainTitle",UIcharSet$mainTitle,value="Social Network"),
+    textInput("mainTitle",UIcharSet$mainTitle,value=UIcharSet$headTitle),
     selectInput('vcolor', UIcharSet$vcolor, colorSet, selected = "turquoise"),
     selectInput('ecolor', UIcharSet$ecolor, colorSet, selected = "grey"),
     sliderInput('mainFontSize', UIcharSet$mainFontSize, min=1, max=10,
@@ -65,9 +64,9 @@ shinyUI(pageWithSidebar(
     selectInput('vfcolor', UIcharSet$vfcolor, colorSet,selected="black"),
     selectInput('efcolor', UIcharSet$efcolor, colorSet,selected="black"),
     sliderInput('vLabelFontSize', UIcharSet$vLabelFontSize, min=1, max=10,
-                value=2, step=0.2, round=0),
+                value=1.8, step=0.2, round=0),
     sliderInput('eLabelFontSize', UIcharSet$eLabelFontSize, min=1, max=10,
-                value=2, step=0.2, round=0)
+                value=1.2, step=0.2, round=0)
   ),
   
   mainPanel(

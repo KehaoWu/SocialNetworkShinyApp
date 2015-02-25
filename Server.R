@@ -8,11 +8,9 @@ shinyServer(function(input, output) {
 
   
   output$plot <- reactivePlot(function() {
-    #PersonOne = c("Tom","Jerry","Kathleen","John","SMith","Douglas")
-    PersonOne = unlist(strsplit(x = input$person1,split = ",",perl = T))
-    #PersonTwo = c("Jerry","Kathleen","SMith","Douglas","John","Tom")
-    PersonTwo = unlist(strsplit(x = input$person2,split = ",",perl = T))
-    RelationLabel = unlist(strsplit(x = input$RelationLabel,split = ",",perl = T))
+    PersonOne = unlist(strsplit(x = input$person1,split = ",|\\s+",perl = T))
+    PersonTwo = unlist(strsplit(x = input$person2,split = ",|\\s+",perl = T))
+    RelationLabel = unlist(strsplit(x = input$RelationLabel,split = ",|\\s+",perl = T))
     if(input$OK)
     {
       Label = unique(c(PersonOne,PersonTwo))
@@ -35,7 +33,7 @@ shinyServer(function(input, output) {
       E(g)$width = input$eLWD
       plot(g,layout = layout.auto)
       title(main = input$mainTitle,cex.main=input$mainFontSize)
-      title(sub = "Developed by Kehao Wu",cex.sub=0.8,col.sub="tomato")
+      title(sub = "Developed by Kehao Wu",cex.sub=0.8,col.sub="grey")
     }
 
     
