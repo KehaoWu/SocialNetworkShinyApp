@@ -2,15 +2,43 @@ library(shiny)
 library(igraph)
 
 shinyServer(function(input, output) {
-  output$help <- renderPrint({
-    cat("<p>help</p>")
-  })
 
+  process = function(v)
+  {
+    v = unlist(strsplit(x = v,split = ",|\\s+",perl = T))
+    l = v[1]
+    v = v[-1]
+    n = length(v)
+    p1 = p2 = label = NULL
+    for(i in 1:(n-1))
+    {
+      for(j in (i+1):n)
+      {
+        p1 = c(p1, v[i])
+        p2 = c(p2, v[j])
+        label = c(label, l)
+      }
+    }
+    return(list(p1=p1,p2=p2,l=label))
+  }
   
   output$plot <- reactivePlot(function() {
-    PersonOne = unlist(strsplit(x = input$person1,split = ",|\\s+",perl = T))
-    PersonTwo = unlist(strsplit(x = input$person2,split = ",|\\s+",perl = T))
-    RelationLabel = unlist(strsplit(x = input$RelationLabel,split = ",|\\s+",perl = T))
+    
+    data = input$textArea
+    data = unlist(strsplit(x = data,split = "\\n"))
+    print(data)
+    PersonOne = NULL
+    PersonTwo = NULL
+    RelationLabel = NULL
+    
+    for(v in data)
+    {
+      r = process(v)
+      PersonOne = c(PersonOne,r$p1)
+      PersonTwo = c(PersonTwo,r$p2)
+      RelationLabel = c(RelationLabel,r$l)
+    }
+
     if(input$OK)
     {
       Label = unique(c(PersonOne,PersonTwo))

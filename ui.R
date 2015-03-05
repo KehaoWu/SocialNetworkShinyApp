@@ -35,13 +35,9 @@ UIcharSetEnglish = list(headTitle = "Social Relationship Network Graph",
 
 UIcharSet = UIcharSetChinese
 
-dataset <- data.frame(
-  person1 = "令计划 令计划 令计划 谷丽萍 谷丽萍 于丽芳 令完成 毛晓峰 毛晓峰",
-  person2 = "令完成 谷丽萍 毛晓峰 于丽芳 毛晓峰 毛晓峰 毛晓峰 段青山 董文标",
-  relation = "兄弟 夫妻 校友及昔日上下级 夫人俱乐部成员 同事 同事 校友 同事 同事"
-)
 colorSet <- c("grey","skyblue","turquoise","tomato","tan","slateblue",
               "wheat","sienna","black")
+default = paste(readLines("demo.txt"),collapse = "\n")
 
 shinyUI(pageWithSidebar(
   
@@ -49,9 +45,7 @@ shinyUI(pageWithSidebar(
   
   sidebarPanel(
     checkboxInput("OK",UIcharSet$ok,F),
-    textInput("person1",UIcharSet$person1,value=dataset$person1),
-    textInput("person2",UIcharSet$person2,value=dataset$person2),
-    textInput("RelationLabel",UIcharSet$RelationLabel,value=dataset$relation),
+    tags$textarea(id="textArea", rows="10", cols="36", default),
     textInput("mainTitle",UIcharSet$mainTitle,value=UIcharSet$headTitle),
     selectInput('vcolor', UIcharSet$vcolor, colorSet, selected = "turquoise"),
     selectInput('ecolor', UIcharSet$ecolor, colorSet, selected = "grey"),
@@ -72,7 +66,7 @@ shinyUI(pageWithSidebar(
   mainPanel(
     conditionalPanel(condition = "input.OK = true",
                      plotOutput('plot')
-                     ),
+    ),
     conditionalPanel(condition = "input.OK = false",
                      htmlOutput('help',inline = T)
     )
